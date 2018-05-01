@@ -12,7 +12,7 @@ public class Persona extends PersonaApp.PersonaPOA{
         boolean resultado = false;
         try {
             String query = "insert into persona(identificacion,nombre,apellido,direccion,telefono,email)"
-                    + "values ("+identificacion+","+nombre+","+apellido+","+direccion+","+telefono+","+email+")";
+                    + "values ('"+identificacion+"','"+nombre+"','"+apellido+"','"+direccion+"','"+telefono+"','"+email+"')";
             conex.conexion();
             Statement st = conex.conex.createStatement();
             int valor = st.executeUpdate(query);
@@ -30,7 +30,27 @@ public class Persona extends PersonaApp.PersonaPOA{
 
     @Override
     public String consultarPersona(int identificacion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String resultado = "";
+        try {
+            String query = "Select * from Persona where identificacion = "+identificacion;
+            conex.conexion();
+            Statement st = conex.conex.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+                resultado += rs.getLong(2)+ " - "
+                        + rs.getString(3) + " - "
+                        + rs.getString(4) + " - "
+                        + rs.getString(5) + " - "
+                        + rs.getString(6) + " - "
+                        + rs.getString(7) + "\n";
+            }
+            st.close();
+            rs.close();
+            conex.conex.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ocurrio un error "+e.getMessage());
+        }
+        return resultado;
     }
 
     @Override
@@ -45,7 +65,27 @@ public class Persona extends PersonaApp.PersonaPOA{
 
     @Override
     public String listarPersona() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String resultado = "";
+        try {
+            String query = "Select * from Persona";
+            conex.conexion();
+            Statement st = conex.conex.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+                resultado += rs.getLong(2)+ " - "
+                        + rs.getString(3) + " - "
+                        + rs.getString(4) + " - "
+                        + rs.getString(5) + " - "
+                        + rs.getString(6) + " - "
+                        + rs.getString(7) + "\n";
+            }
+            st.close();
+            rs.close();
+            conex.conex.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ocurrio un error "+e.getMessage());
+        }
+        return resultado;
     }
 
     @Override
